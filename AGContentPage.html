@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/xp.css"
+>
+    <title>AntiGloss</title>
+    <style>
+
+  html, body {
+    transform-origin: center center;
+  }
+
+  .flip-horizontal {
+    transform: scaleX(-1);
+  }
+
+  .flip-vertical {
+    transform: scaleY(-1);
+  }
+
+  .invert {
+    filter: invert(1);
+  }
+        html, body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+             background-image: url('images/AGIconSq.png');
+            background-repeat: repeat; /* This is the default behavior */
+        }
+
+        .repeating-bg {
+            background-image: url('images/AGIconlong.png');
+            background-repeat: repeat; /* This is the default behavior */
+        }
+        .popup-img {
+            position: absolute;
+            width: 150px; /* Adjust size as needed */
+            height: auto;
+            z-index: 0; /* sits above the background but below the content box */
+        }
+
+        /* Left window: holds text */
+        .window-left {
+            position: fixed;
+            top: 50%;
+            left: 3%;
+            transform: translateY(-50%);
+            z-index: 10;
+            width: 320px;
+            max-width: 32vw;
+        }
+
+        /* Lower-center window: holds images */
+        .window-lower-center {
+            position: fixed;
+            bottom: 4%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            width: 420px;
+            max-width: 44vw;
+        }
+
+        /* Upper-right window: holds a gif */
+        .window-upper-right {
+            position: fixed;
+            top: 4%;
+            right: 3%;
+            z-index: 10;
+            width: 300px;
+            max-width: 30vw;
+        }
+
+        .window-body img.content-media {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .image-gallery img {
+            width: 90px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="window window-left">
+  <div class="title-bar">
+    <div class="title-bar-text">The Manifesto</div>
+    <div class="title-bar-controls">
+      <button aria-label="Minimize"></button>
+      <button aria-label="Maximize"></button>
+      <button aria-label="Close" onclick="window.location.href='AGContentPage.html'"></button>
+    </div>
+  </div>
+  <div class="window-body">
+    <p>&#10094;AG&#10095; AntiGloss</p>
+    <p>
+      Replace this placeholder with your manifesto text. This window is
+      fixed to the left side of the page and will hold whatever copy
+      you'd like readers to see first.
+    </p>
+  </div>
+</div>
+
+<div class="window window-lower-center">
+  <div class="title-bar">
+    <div class="title-bar-text">Gallery</div>
+    <div class="title-bar-controls">
+      <button aria-label="Minimize"></button>
+      <button aria-label="Maximize"></button>
+      <button aria-label="Close"></button>
+    </div>
+  </div>
+  <div class="window-body">
+    <div class="image-gallery">
+      <img src="images/ag5).png" alt="">
+      <img src="images/ag6).png" alt="">
+      <img src="images/ag7).png" alt="">
+      <img src="images/ag8).png" alt="">
+    </div>
+  </div>
+</div>
+
+<div class="window window-upper-right">
+  <div class="title-bar">
+    <div class="title-bar-text">Loop</div>
+    <div class="title-bar-controls">
+      <button aria-label="Minimize"></button>
+      <button aria-label="Maximize"></button>
+      <button aria-label="Close"></button>
+    </div>
+  </div>
+  <div class="window-body">
+    <img class="content-media" src="images/AGLoop.gif" alt="gif">
+  </div>
+</div>
+
+    <script>
+        // Array of your image URLs (replace with your own links or file paths)
+        const images = [
+            "images/ag5).png",
+            "images/ag6).png",
+            "images/ag7).png",
+            "images/ag8).png",
+            "images/ag9).png",
+            "images/ag10).png",
+            "images/ag11).png",
+            "images/ag12).png",
+            "images/ag13).png",
+            "images/ag14).png",
+            "images/ag15).png",
+            "images/ag16).png",
+            "images/ag17).png",
+            "images/ag18).png",
+            "images/ag19).png",
+            "images/ag20).png",
+        ];
+
+        function showRandomImage() {
+            // Create an image element
+            const img = document.createElement('img');
+            
+            // Pick a random image from the array
+            const randomImgUrl = images[Math.floor(Math.random() * images.length)];
+            img.src = randomImgUrl;
+            img.className = 'popup-img';
+
+            // Calculate random X and Y positions within the viewport
+            const maxWidth = window.innerWidth - 150;  // Subtract image width
+            const maxHeight = window.innerHeight - 150; // Subtract image height
+            
+            const randomX = Math.floor(Math.random() * maxWidth);
+            const randomY = Math.floor(Math.random() * maxHeight);
+
+            // Apply positions
+            img.style.left = randomX + 'px';
+            img.style.top = randomY + 'px';
+            img.style.cursor = 'pointer';
+
+            // Remove the image when it's clicked
+            img.addEventListener('click', () => {
+                img.remove();
+            });
+
+            // Add to the body
+            document.body.appendChild(img);
+
+            // Optional: Remove the image after 60 seconds so the screen doesn't get overcrowded
+            setTimeout(() => {
+                img.remove();
+            }, 60000);
+        }
+
+        // Trigger every 3 seconds (3000 milliseconds)
+        setInterval(showRandomImage, 500);
+    </script>
+
+</body>
+</html>

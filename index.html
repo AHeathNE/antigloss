@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/xp.css"
+>
+    <title>AntiGloss</title>
+    <style>
+
+  html, body {
+    transform-origin: center center;
+  }
+
+  .flip-horizontal {
+    transform: scaleX(-1);
+  }
+
+  .flip-vertical {
+    transform: scaleY(-1);
+  }
+
+  .invert {
+    filter: invert(1);
+  }
+        html, body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+             background-image: url('images/AGIconSq.png');
+            background-repeat: repeat; /* This is the default behavior */
+        }
+
+        .repeating-bg {
+            background-image: url('images/AGIconlong.png');
+            background-repeat: repeat; /* This is the default behavior */
+        }
+        .popup-img {
+            position: absolute;
+            width: 150px; /* Adjust size as needed */
+            height: auto;
+            z-index: 0; /* sits above the background but below the content box */
+        }
+
+        .window {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10; /* stays above the popup images */
+            max-width: 400px;
+    </style>
+</head>
+<body>
+
+<div class="window">
+  <div class="title-bar">
+    <div class="title-bar-text">Welcome Friend</div>
+    <div class="title-bar-controls">
+      <button aria-label="Minimize" onclick="document.body.classList.toggle('flip-horizontal')"></button>
+      <button aria-label="Maximize" onclick="document.body.classList.toggle('flip-vertical')"></button>
+      <button aria-label="Close" onclick="document.body.classList.toggle('invert')"></button>
+    </div>
+  </div>
+  <div class="window-body">
+&#10094;AG&#10095; AntiGloss Manifesto
+            <button onclick="window.location.href='AGContentPage.html'">Get Started</button>
+    
+  </div>
+</div>
+
+    <script>
+        // Array of your image URLs (replace with your own links or file paths)
+        const images = [
+            "images/ag5).png",
+            "images/ag6).png",
+            "images/ag7).png",
+            "images/ag8).png",
+            "images/ag9).png",
+            "images/ag10).png",
+            "images/ag11).png",
+            "images/ag12).png",
+            "images/ag13).png",
+            "images/ag14).png",
+            "images/ag15).png",
+            "images/ag16).png",
+            "images/ag17).png",
+            "images/ag18).png",
+            "images/ag19).png",
+            "images/ag20).png",
+        ];
+
+        function showRandomImage() {
+            // Create an image element
+            const img = document.createElement('img');
+            
+            // Pick a random image from the array
+            const randomImgUrl = images[Math.floor(Math.random() * images.length)];
+            img.src = randomImgUrl;
+            img.className = 'popup-img';
+
+            // Calculate random X and Y positions within the viewport
+            const maxWidth = window.innerWidth - 150;  // Subtract image width
+            const maxHeight = window.innerHeight - 150; // Subtract image height
+            
+            const randomX = Math.floor(Math.random() * maxWidth);
+            const randomY = Math.floor(Math.random() * maxHeight);
+
+            // Apply positions
+            img.style.left = randomX + 'px';
+            img.style.top = randomY + 'px';
+            img.style.cursor = 'pointer';
+
+            // Remove the image when it's clicked
+            img.addEventListener('click', () => {
+                img.remove();
+            });
+
+            // Add to the body
+            document.body.appendChild(img);
+
+            // Optional: Remove the image after 60 seconds so the screen doesn't get overcrowded
+            setTimeout(() => {
+                img.remove();
+            }, 60000);
+        }
+
+        // Trigger every 3 seconds (3000 milliseconds)
+        setInterval(showRandomImage, 500);
+    </script>
+
+
+
+</body>
+</html>
+
